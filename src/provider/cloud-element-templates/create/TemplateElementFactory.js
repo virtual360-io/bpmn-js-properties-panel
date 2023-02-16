@@ -50,12 +50,6 @@ export default class TemplateElementFactory {
    */
   create(template) {
 
-    const {
-      appliesTo,
-      elementType
-    } = template;
-
-    const elementFactory = this._elementFactory;
     const bpmnFactory = this._bpmnFactory;
     const moddle = this._moddle;
     const providers = this._providers;
@@ -68,10 +62,8 @@ export default class TemplateElementFactory {
       throw new Error('template is invalid');
     }
 
-    const type = (elementType && elementType.value) || appliesTo[0];
-
-    // (1) create element from appliesTo
-    const element = elementFactory.createShape({ type });
+    // (1) base shape
+    const element = this._createShape(template);
 
     // (2) ensure extension elements
     if (hasExtensionBindings(template)) {
@@ -106,6 +98,42 @@ export default class TemplateElementFactory {
         bpmnFactory
       });
     });
+
+    return element;
+  }
+
+  _createShape(template) {
+    const {
+      appliesTo,
+      elementType = {}
+    } = template;
+    const elementFactory = this._elementFactory;
+
+    const attrs = {
+      type: elementType.value || appliesTo[0]
+    };
+
+    // apply eventDefinition
+    if (elementType.eventDefinition) {
+      attrs.eventDefinitionType = elementType.eventDefinition;
+    }
+
+    const element = elementFactory.createShape(attrs);
+
+    // add root element
+    if (elementType.eventDefinition) {
+      const message = this._bpmnFactory.create('bpmn:Message', {
+        name: '=messageName',
+        extensionElements: this._bpmnFactory.create('bpmn:ExtensionElements', {
+          values: [
+            this._bpmnFactory.create('zeebe:Subscription', {
+              correlationKey: '=correlationKey'
+            })
+          ]
+        })
+      });
+      getBusinessObject(element).get('eventDefinitions')[0].set('messageRef', message);
+    }
 
     return element;
   }

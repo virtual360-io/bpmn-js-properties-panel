@@ -1,6 +1,7 @@
 import TestContainer from 'mocha-test-container-support';
 
 import {
+  is,
   isAny
 } from 'bpmn-js/lib/util/ModelUtil';
 
@@ -355,6 +356,34 @@ describe('provider/cloud-element-templates - ElementTemplates', function() {
       expect(element.businessObject.get('name')).to.eql('Rest Task');
       expect(extensionElements).to.exist;
       expect(extensionElements.get('values')).to.have.length(3);
+    }));
+
+
+    it('should create element with bpmn:Message', inject(function(elementTemplates) {
+
+      // given
+      const templates = require('./fixtures/message.json');
+
+      // when
+      const element = elementTemplates.createElement(templates[0]);
+
+      const businessObject = getBusinessObject(element);
+      const eventDefinitions = businessObject.get('eventDefinitions');
+
+      // then
+      expect(businessObject.get('name')).to.eql('Message Event');
+      expect(eventDefinitions).to.have.lengthOf(1);
+      expect(is(eventDefinitions[0], 'bpmn:MessageEventDefinition')).to.be.true;
+
+      const message = eventDefinitions[0].get('messageRef');
+      expect(message).to.exist;
+      expect(message.get('name')).to.eql('=messageName');
+
+      const extensionElements = message.get('extensionElements');
+      expect(extensionElements).to.exist;
+
+      const subscription = extensionElements.get('values')[0];
+      expect(is(subscription, 'zeebe:Subscription')).to.be.true;
     }));
 
 
