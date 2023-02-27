@@ -64,8 +64,8 @@ export default class ChangeElementTemplateHandler {
       // do not apply properties that don't meet conditions
       newTemplate = applyConditions(element, newTemplate);
 
-      // update task type
-      element = context.element = this._updateTaskType(element, newTemplate);
+      // update element type
+      element = context.element = this._updateElementType(element, newTemplate);
 
       // update properties
       this._updateProperties(element, oldTemplate, newTemplate);
@@ -607,12 +607,13 @@ export default class ChangeElementTemplateHandler {
   }
 
   /**
-   * Replaces the element with the specified elementType
+   * Replaces the element with the specified elementType.
+   * Takes into account the eventDefinition for events.
    *
    * @param {djs.model.Base} element
    * @param {Object} newTemplate
    */
-  _updateTaskType(element, newTemplate) {
+  _updateElementType(element, newTemplate) {
 
     // determine new task type
     const newType = newTemplate.elementType;
@@ -621,12 +622,26 @@ export default class ChangeElementTemplateHandler {
       return element;
     }
 
-    // don't replace Task that is already the correct type
-    if (element.$type === newType.value) {
-      return element;
+    const replacedElement = this._bpmnReplace.replaceElement(element, { type: newType.value });
+
+    // update event definition
+    if (newType.eventDefinition) {
+      this._addEventDefinition(replacedElement, newType.eventDefinition);
     }
 
-    return this._bpmnReplace.replaceElement(element, { type: newType.value });
+    return replacedElement;
+  }
+
+  _addEventDefinition(element, eventDefinitionType) {
+    const eventDefinition = this._bpmnFactory.create(eventDefinitionType);
+
+    if (eventDefinitionType === 'bpmn:MessageEventDefinition') {
+      eventDefinition.set('messageRef', createMessage(this._bpmnFactory));
+    }
+
+    this._modeling.updateProperties(element, {
+      eventDefinitions: [ eventDefinition ]
+    });
   }
 }
 
@@ -891,4 +906,21 @@ function remove(array, item) {
   array.splice(index, 1);
 
   return array;
+}
+
+function createMessage(bpmnFactory) {
+  const message = bpmnFactory.create('bpmn:Message', { name: '=messageName' });
+
+  const extensionElements = bpmnFactory.create('bpmn:ExtensionElements', {
+    values: [
+      bpmnFactory.create('zeebe:Subscription', {
+        correlationKey: '=correlationKey'
+      })
+    ]
+  });
+  extensionElements.$parent = message;
+
+  message.set('extensionElements', extensionElements);
+
+  return message;
 }
