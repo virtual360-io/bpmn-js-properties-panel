@@ -6,6 +6,8 @@ All notable changes to [bpmn-js-properties-panel](https://github.com/bpmn-io/bpm
 
 ___Note:__ Yet to be released changes appear here._
 
+* `DEPS`: update to `bpmn-js@11.5.0`
+
 # 1.17.2
 
 * `FIX`: don't apply default template during paste ([#877](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/877))
