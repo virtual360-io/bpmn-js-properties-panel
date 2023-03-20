@@ -1,10 +1,11 @@
 [
   {
     "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema@0.7.0/resources/schema.json",
-    "name": "Message Event Template Test",
+    "name": "Message Event Template",
     "id": "messageEventTemplate",
     "appliesTo": [
-      "bpmn:IntermediateEvent"
+      "bpmn:IntermediateCatchEvent",
+      "bpmn:IntermediateThrowEvent"
     ],
     "elementType": {
       "value": "bpmn:IntermediateCatchEvent",

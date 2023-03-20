@@ -359,7 +359,7 @@ describe('provider/cloud-element-templates - ElementTemplates', function() {
     }));
 
 
-    it('should create element with bpmn:Message', inject(function(elementTemplates) {
+    it('should create element with bpmn:MessageEventDefinition', inject(function(elementTemplates) {
 
       // given
       const templates = require('./fixtures/message.json');
@@ -374,16 +374,6 @@ describe('provider/cloud-element-templates - ElementTemplates', function() {
       expect(businessObject.get('name')).to.eql('Message Event');
       expect(eventDefinitions).to.have.lengthOf(1);
       expect(is(eventDefinitions[0], 'bpmn:MessageEventDefinition')).to.be.true;
-
-      const message = eventDefinitions[0].get('messageRef');
-      expect(message).to.exist;
-      expect(message.get('name')).to.eql('=messageName');
-
-      const extensionElements = message.get('extensionElements');
-      expect(extensionElements).to.exist;
-
-      const subscription = extensionElements.get('values')[0];
-      expect(is(subscription, 'zeebe:Subscription')).to.be.true;
     }));
 
 
@@ -540,6 +530,61 @@ describe('provider/cloud-element-templates - ElementTemplates', function() {
       );
     }));
 
+
+    it('should apply event definition', inject(function(elementRegistry, elementTemplates) {
+
+      // given
+      const templates = require('./fixtures/message.json');
+      elementTemplates.set(templates);
+
+      const template = templates[0];
+      const event = elementRegistry.get('IntermediateThrow');
+
+      // assume
+      expect(template).to.exist;
+
+      // when
+      const updatedEvent = elementTemplates.applyTemplate(event, template);
+
+      // then
+      expect(updatedEvent).to.exist;
+      expect(elementTemplates.get(updatedEvent)).to.equal(template);
+
+      expect(is(updatedEvent, 'bpmn:IntermediateCatchEvent')).to.be.true;
+
+      const eventDefinitions = getBusinessObject(updatedEvent).get('eventDefinitions');
+      expect(eventDefinitions).to.have.length(1);
+      expect(is(eventDefinitions[0], 'bpmn:MessageEventDefinition')).to.be.true;
+    }));
+
+
+    it('should replace existing event definition', inject(function(elementRegistry, elementTemplates) {
+
+      // given
+      const templates = require('./fixtures/message.json');
+      elementTemplates.set(templates);
+
+      const template = templates[0];
+      const event = elementRegistry.get('IntermediateCatchMessage');
+      const oldMessageEventDefinition = getBusinessObject(event).get('eventDefinitions')[0];
+
+      // assume
+      expect(template).to.exist;
+
+      // when
+      const updatedEvent = elementTemplates.applyTemplate(event, template);
+
+      // then
+      expect(updatedEvent).to.exist;
+      expect(elementTemplates.get(updatedEvent)).to.equal(template);
+
+      expect(is(updatedEvent, 'bpmn:IntermediateCatchEvent')).to.be.true;
+
+      const eventDefinitions = getBusinessObject(updatedEvent).get('eventDefinitions');
+      expect(eventDefinitions).to.have.length(1);
+      expect(is(eventDefinitions[0], 'bpmn:MessageEventDefinition')).to.be.true;
+      expect(eventDefinitions[0]).not.to.eql(oldMessageEventDefinition);
+    }));
   });
 
 });
