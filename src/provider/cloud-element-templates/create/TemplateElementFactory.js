@@ -120,21 +120,6 @@ export default class TemplateElementFactory {
 
     const element = elementFactory.createShape(attrs);
 
-    // add root element
-    if (elementType.eventDefinition) {
-      const message = this._bpmnFactory.create('bpmn:Message', {
-        name: '=messageName',
-        extensionElements: this._bpmnFactory.create('bpmn:ExtensionElements', {
-          values: [
-            this._bpmnFactory.create('zeebe:Subscription', {
-              correlationKey: '=correlationKey'
-            })
-          ]
-        })
-      });
-      getBusinessObject(element).get('eventDefinitions')[0].set('messageRef', message);
-    }
-
     return element;
   }
 

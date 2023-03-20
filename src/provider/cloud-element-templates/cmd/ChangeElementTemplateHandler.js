@@ -622,12 +622,13 @@ export default class ChangeElementTemplateHandler {
       return element;
     }
 
-    const replacedElement = this._bpmnReplace.replaceElement(element, { type: newType.value });
+    const replacement = { type: newType.value };
 
-    // update event definition
     if (newType.eventDefinition) {
-      this._addEventDefinition(replacedElement, newType.eventDefinition);
+      replacement.eventDefinitionType = newType.eventDefinition;
     }
+
+    const replacedElement = this._bpmnReplace.replaceElement(element, replacement);
 
     return replacedElement;
   }
