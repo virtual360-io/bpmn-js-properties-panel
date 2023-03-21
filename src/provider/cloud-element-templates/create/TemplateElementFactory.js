@@ -12,9 +12,13 @@ import InputBindingProvider from './InputBindingProvider';
 import OutputBindingProvider from './OutputBindingProvider';
 import TaskHeaderBindingProvider from './TaskHeaderBindingProvider';
 import ZeebePropertiesProvider from './ZeebePropertiesProvider';
+import { MessagePropertyBindingProvider } from './MessagePropertyBindingProvider';
+import { MessageZeebeSubscriptionBindingProvider } from './MessageZeebeSubscriptionBindingProvider';
 
 import {
   EXTENSION_BINDING_TYPES,
+  MESSAGE_PROPERTY_TYPE,
+  MESSAGE_ZEEBE_SUBSCRIPTION_TYPE,
   PROPERTY_TYPE,
   ZEEBE_TASK_DEFINITION_TYPE_TYPE,
   ZEBBE_INPUT_TYPE,
@@ -38,7 +42,9 @@ export default class TemplateElementFactory {
       [ZEBBE_PROPERTY_TYPE]: ZeebePropertiesProvider,
       [ZEBBE_INPUT_TYPE]: InputBindingProvider,
       [ZEEBE_OUTPUT_TYPE]: OutputBindingProvider,
-      [ZEEBE_TASK_HEADER_TYPE]: TaskHeaderBindingProvider
+      [ZEEBE_TASK_HEADER_TYPE]: TaskHeaderBindingProvider,
+      [MESSAGE_PROPERTY_TYPE]: MessagePropertyBindingProvider,
+      [MESSAGE_ZEEBE_SUBSCRIPTION_TYPE]: MessageZeebeSubscriptionBindingProvider
     };
   }
 

@@ -377,6 +377,25 @@ describe('provider/cloud-element-templates - ElementTemplates', function() {
     }));
 
 
+    it.only('should create message with generated name if not provided', inject(function(elementTemplates) {
+
+      // given
+      const templates = require('./fixtures/message.json');
+
+      // when
+      const element = elementTemplates.createElement(templates[0]);
+
+      const businessObject = getBusinessObject(element);
+      const eventDefinitions = businessObject.get('eventDefinitions');
+
+      // then
+      const message = eventDefinitions[0].get('messageRef');
+
+      expect(message).to.exist;
+      expect(message.get('name')).to.exist;
+    }));
+
+
     it('should not create conditional properties', inject(function(elementTemplates) {
 
       // given

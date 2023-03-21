@@ -6,6 +6,8 @@ export const ZEEBE_OUTPUT_TYPE = 'zeebe:output';
 export const ZEEBE_PROPERTY_TYPE = 'zeebe:property';
 export const ZEEBE_TASK_DEFINITION_TYPE_TYPE = 'zeebe:taskDefinition:type';
 export const ZEEBE_TASK_HEADER_TYPE = 'zeebe:taskHeader';
+export const MESSAGE_PROPERTY_TYPE = 'bpmn:Message#property';
+export const MESSAGE_ZEEBE_SUBSCRIPTION_TYPE = 'bpmn:Message#zeebe:subscription';
 
 export const EXTENSION_BINDING_TYPES = [
   ZEBBE_INPUT_TYPE,
