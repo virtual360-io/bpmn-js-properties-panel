@@ -24,6 +24,12 @@ import {
 
 import { applyConditions } from '../Condition';
 
+import {
+  MESSAGE_PROPERTY_TYPE,
+  MESSAGE_ZEEBE_SUBSCRIPTION_PROPERTY_TYPE
+} from '../util/bindingTypes';
+import { createElement } from '../../../utils/ElementUtil';
+
 /**
  * Applies an element template to an element. Sets `zeebe:modelerTemplate` and
  * `zeebe:modelerTemplateVersion`.
@@ -81,14 +87,18 @@ export default class ChangeElementTemplateHandler {
 
       // update zeebe:Property properties
       this._updateZeebePropertyProperties(element, oldTemplate, newTemplate);
+
+      // update bpmn:Message properties
+      this._updateMessageProperties(element, oldTemplate, newTemplate);
+
+      // update bpmn:Message zeebe:subscription properties
+      this._updateMessageZeebeSubscriptionProperties(element, oldTemplate, newTemplate);
     }
   }
 
-  _getOrCreateExtensionElements(element) {
+  _getOrCreateExtensionElements(element, businessObject = getBusinessObject(element)) {
     const bpmnFactory = this._bpmnFactory,
           modeling = this._modeling;
-
-    const businessObject = getBusinessObject(element);
 
     let extensionElements = businessObject.get('extensionElements');
 
@@ -99,7 +109,7 @@ export default class ChangeElementTemplateHandler {
 
       extensionElements.$parent = businessObject;
 
-      modeling.updateProperties(element, {
+      modeling.updateModdleProperties(element, businessObject, {
         extensionElements: extensionElements
       });
     }
@@ -607,6 +617,124 @@ export default class ChangeElementTemplateHandler {
   }
 
   /**
+   * Update bpmn:Message properties.
+   *
+   * @param {djs.model.Base} element
+   * @param {Object} oldTemplate
+   * @param {Object} newTemplate
+   */
+  _updateMessageProperties(element, oldTemplate, newTemplate) {
+    const newProperties = newTemplate.properties.filter((newProperty) => {
+      const newBinding = newProperty.binding,
+            newBindingType = newBinding.type;
+
+      return newBindingType === MESSAGE_PROPERTY_TYPE;
+    });
+
+    const message = this._getOrCreateMessage(element);
+
+    if (!newProperties.length) {
+      return;
+    }
+
+    newProperties.forEach((newProperty) => {
+      const oldProperty = findOldProperty(oldTemplate, newProperty),
+            newBinding = newProperty.binding,
+            newBindingName = newBinding.name,
+            newPropertyValue = newProperty.value,
+            changedElement = message;
+
+      let properties = {};
+
+      if (shouldKeepValue(changedElement, oldProperty, newProperty)) {
+        return;
+      }
+
+      properties[ newBindingName ] = newPropertyValue;
+
+      this._modeling.updateModdleProperties(element, changedElement, properties);
+    });
+  }
+
+  /**
+   * Update bpmn:Message#zeebe:subscription properties.
+   *
+   * @param {djs.model.Base} element
+   * @param {Object} oldTemplate
+   * @param {Object} newTemplate
+   */
+  _updateMessageZeebeSubscriptionProperties(element, oldTemplate, newTemplate) {
+    const newProperties = newTemplate.properties.filter((newProperty) => {
+      const newBinding = newProperty.binding,
+            newBindingType = newBinding.type;
+
+      return newBindingType === MESSAGE_ZEEBE_SUBSCRIPTION_PROPERTY_TYPE;
+    });
+
+    const message = this._getOrCreateMessage(element);
+
+    if (!newProperties.length) {
+      return;
+    }
+
+    const zeebeSubscription = this._getOrCreateExtension(element, message, 'zeebe:Subscription');
+
+    newProperties.forEach((newProperty) => {
+      const oldProperty = findOldProperty(oldTemplate, newProperty),
+            newBinding = newProperty.binding,
+            newBindingName = newBinding.name,
+            newPropertyValue = newProperty.value,
+            changedElement = zeebeSubscription;
+
+      let properties = {};
+
+      if (shouldKeepValue(changedElement, oldProperty, newProperty)) {
+        return;
+      }
+
+      properties[ newBindingName ] = newPropertyValue;
+
+      this._modeling.updateModdleProperties(element, changedElement, properties);
+    });
+  }
+
+  _getOrCreateExtension(element, bo, type,) {
+    const extensionElements = this._getOrCreateExtensionElements(element, bo);
+
+    const extension = findExtension(extensionElements, type);
+
+    if (extension) {
+      return extension;
+    }
+
+    const newExtension = createElement(type, {}, bo, this._bpmnFactory);
+
+    this._modeling.updateModdleProperties(element, extensionElements, {
+      values: [ ...extensionElements.get('values'), newExtension ]
+    });
+
+    return newExtension;
+  }
+
+  _getOrCreateMessage(element) {
+    let bo = getBusinessObject(element);
+
+    if (is(bo, 'bpmn:Event')) {
+      bo = bo.get('eventDefinitions')[0];
+    }
+
+    let message = bo.get('messageRef');
+
+    if (!message) {
+      message = this._bpmnFactory.create('bpmn:Message');
+
+      this._modeling.updateModdleProperties(element, bo, { messageRef: message });
+    }
+
+    return message;
+  }
+
+  /**
    * Replaces the element with the specified elementType.
    * Takes into account the eventDefinition for events.
    *
@@ -631,18 +759,6 @@ export default class ChangeElementTemplateHandler {
     const replacedElement = this._bpmnReplace.replaceElement(element, replacement);
 
     return replacedElement;
-  }
-
-  _addEventDefinition(element, eventDefinitionType) {
-    const eventDefinition = this._bpmnFactory.create(eventDefinitionType);
-
-    if (eventDefinitionType === 'bpmn:MessageEventDefinition') {
-      eventDefinition.set('messageRef', createMessage(this._bpmnFactory));
-    }
-
-    this._modeling.updateProperties(element, {
-      eventDefinitions: [ eventDefinition ]
-    });
   }
 }
 
@@ -808,6 +924,32 @@ export function findOldProperty(oldTemplate, newProperty) {
       return oldBinding.name === newBinding.name;
     });
   }
+
+  if (newBindingType === MESSAGE_PROPERTY_TYPE) {
+    return oldProperties.find(oldProperty => {
+      const oldBinding = oldProperty.binding,
+            oldBindingType = oldBinding.type;
+
+      if (oldBindingType !== MESSAGE_PROPERTY_TYPE) {
+        return;
+      }
+
+      return oldBinding.name === newBinding.name;
+    });
+  }
+
+  if (newBindingType === MESSAGE_ZEEBE_SUBSCRIPTION_PROPERTY_TYPE) {
+    return oldProperties.find(oldProperty => {
+      const oldBinding = oldProperty.binding,
+            oldBindingType = oldBinding.type;
+
+      if (oldBindingType !== MESSAGE_ZEEBE_SUBSCRIPTION_PROPERTY_TYPE) {
+        return;
+      }
+
+      return oldBinding.name === newBinding.name;
+    });
+  }
 }
 
 /**
@@ -895,6 +1037,14 @@ function getPropertyValue(element, property) {
   if (bindingType === 'zeebe:property') {
     return businessObject.get('zeebe:value');
   }
+
+  if (bindingType === MESSAGE_PROPERTY_TYPE) {
+    return businessObject.get(bindingName);
+  }
+
+  if (bindingType === MESSAGE_ZEEBE_SUBSCRIPTION_PROPERTY_TYPE) {
+    return businessObject.get(bindingName);
+  }
 }
 
 function remove(array, item) {
@@ -907,21 +1057,4 @@ function remove(array, item) {
   array.splice(index, 1);
 
   return array;
-}
-
-function createMessage(bpmnFactory) {
-  const message = bpmnFactory.create('bpmn:Message', { name: '=messageName' });
-
-  const extensionElements = bpmnFactory.create('bpmn:ExtensionElements', {
-    values: [
-      bpmnFactory.create('zeebe:Subscription', {
-        correlationKey: '=correlationKey'
-      })
-    ]
-  });
-  extensionElements.$parent = message;
-
-  message.set('extensionElements', extensionElements);
-
-  return message;
 }
