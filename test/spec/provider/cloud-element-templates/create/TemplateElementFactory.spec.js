@@ -328,7 +328,7 @@ describe('provider/cloud-element-templates - TemplateElementFactory', function()
     }));
 
 
-    it.only('should handle <bpmn:Message#property>', inject(function(templateElementFactory) {
+    it('should handle <bpmn:Message#property>', inject(function(templateElementFactory) {
 
       // given
       const elementTemplate = findTemplate('example.camunda.MessageTemplate');
@@ -342,17 +342,14 @@ describe('provider/cloud-element-templates - TemplateElementFactory', function()
 
       // then
       expect(message).to.exist;
-      expect(message).to.jsonEqual({
-        $type: 'bpmn:Message',
-        name: 'messageName'
-      });
+      expect(message).to.have.property('name', 'hard-coded');
     }));
 
 
-    it.only('should handle <bpmn:Message#zeebe:subscription>', inject(function(templateElementFactory) {
+    it('should handle <bpmn:Message#zeebe:subscription>', inject(function(templateElementFactory) {
 
       // given
-      const elementTemplate = findTemplate('example.camunda.MessageTemplate');
+      const elementTemplate = findTemplate('example.camunda.SubscriptionMessageTemplate');
 
       // when
       const element = templateElementFactory.create(elementTemplate);
@@ -366,7 +363,7 @@ describe('provider/cloud-element-templates - TemplateElementFactory', function()
       expect(subscription).to.exist;
       expect(subscription).to.jsonEqual({
         $type: 'zeebe:Subscription',
-        correlationKey: 'correlationKey'
+        correlationKey: '=variable'
       });
     }));
   });

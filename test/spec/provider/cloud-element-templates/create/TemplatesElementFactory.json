@@ -300,8 +300,8 @@
     },
     "properties": [
       {
-        "label": "messageNamee",
         "type": "Hidden",
+        "value": "hard-coded",
         "binding": {
           "type": "bpmn:Message#property",
           "name": "name"
@@ -311,8 +311,8 @@
   },
   {
     "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
-    "name": "Message Template",
-    "id": "example.camunda.MessageTemplate",
+    "name": "Subscription Message Template",
+    "id": "example.camunda.SubscriptionMessageTemplate",
     "appliesTo": [
       "bpmn:IntermediateCatchEvent"
     ],
@@ -324,8 +324,9 @@
       {
         "label": "correlationKey",
         "type": "Hidden",
+        "value": "=variable",
         "binding": {
-          "type": "bpmn:Message#zeebe:subscription",
+          "type": "bpmn:Message#zeebe:subscription#property",
           "name": "correlationKey"
         }
       }

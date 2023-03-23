@@ -13,7 +13,7 @@ import { MessageZeebeSubscriptionBindingProvider } from './MessageZeebeSubscript
 
 import {
   MESSAGE_PROPERTY_TYPE,
-  MESSAGE_ZEEBE_SUBSCRIPTION_TYPE,
+  MESSAGE_ZEEBE_SUBSCRIPTION_PROPERTY_TYPE,
   PROPERTY_TYPE,
   ZEEBE_TASK_DEFINITION_TYPE_TYPE,
   ZEBBE_INPUT_TYPE,
@@ -38,7 +38,7 @@ export default class TemplateElementFactory {
       [ZEEBE_OUTPUT_TYPE]: OutputBindingProvider,
       [ZEEBE_TASK_HEADER_TYPE]: TaskHeaderBindingProvider,
       [MESSAGE_PROPERTY_TYPE]: MessagePropertyBindingProvider,
-      [MESSAGE_ZEEBE_SUBSCRIPTION_TYPE]: MessageZeebeSubscriptionBindingProvider
+      [MESSAGE_ZEEBE_SUBSCRIPTION_PROPERTY_TYPE]: MessageZeebeSubscriptionBindingProvider
     };
   }
 

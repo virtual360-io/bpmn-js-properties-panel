@@ -377,7 +377,7 @@ describe('provider/cloud-element-templates - ElementTemplates', function() {
     }));
 
 
-    it.only('should create message with generated name if not provided', inject(function(elementTemplates) {
+    it('should create message', inject(function(elementTemplates) {
 
       // given
       const templates = require('./fixtures/message.json');
