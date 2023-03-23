@@ -11,7 +11,6 @@ import {
 
 export class MessageZeebeSubscriptionBindingProvider {
   static create(element, options) {
-    debugger;
     const {
       bpmnFactory,
       property
