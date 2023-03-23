@@ -16,7 +16,6 @@ import { MessagePropertyBindingProvider } from './MessagePropertyBindingProvider
 import { MessageZeebeSubscriptionBindingProvider } from './MessageZeebeSubscriptionBindingProvider';
 
 import {
-  EXTENSION_BINDING_TYPES,
   MESSAGE_PROPERTY_TYPE,
   MESSAGE_ZEEBE_SUBSCRIPTION_TYPE,
   PROPERTY_TYPE,
@@ -71,22 +70,17 @@ export default class TemplateElementFactory {
     // (1) base shape
     const element = this._createShape(template);
 
-    // (2) ensure extension elements
-    if (hasExtensionBindings(template)) {
-      this._ensureExtensionElements(element);
-    }
-
-    // (3) apply template
+    // (2) apply template
     this._setModelerTemplate(element, template);
 
-    // (4) apply icon
+    // (3) apply icon
     if (hasIcon(template)) {
       this._setModelerTemplateIcon(element, template);
     }
 
     const { properties } = applyConditions(element, template);
 
-    // (5) apply properties
+    // (4) apply properties
     properties.forEach(function(property) {
 
       const {
@@ -129,24 +123,6 @@ export default class TemplateElementFactory {
     return element;
   }
 
-  _ensureExtensionElements(element) {
-    const bpmnFactory = this._bpmnFactory;
-    const businessObject = getBusinessObject(element);
-
-    let extensionElements = businessObject.get('extensionElements');
-
-    if (!extensionElements) {
-      extensionElements = bpmnFactory.create('bpmn:ExtensionElements', {
-        values: []
-      });
-
-      extensionElements.$parent = businessObject;
-      businessObject.set('extensionElements', extensionElements);
-    }
-
-    return extensionElements;
-  }
-
   _setModelerTemplate(element, template) {
     const {
       id,
@@ -174,29 +150,10 @@ export default class TemplateElementFactory {
   }
 }
 
-TemplateElementFactory.$inject = [ 'bpmnFactory', 'elementFactory', 'moddle' ];
+TemplateElementFactory.$inject = [ 'bpmnFactory', 'elementFactory' ];
 
 
 // helper ////////////////
-
-function hasExtensionBindings(template) {
-  const {
-    properties
-  } = template;
-
-  // find icon first
-  if (hasIcon(template)) {
-    return true;
-  }
-
-  return find(properties, function(property) {
-    const {
-      binding
-    } = property;
-
-    return EXTENSION_BINDING_TYPES.includes(binding.type);
-  });
-}
 
 function hasIcon(template) {
   const {
