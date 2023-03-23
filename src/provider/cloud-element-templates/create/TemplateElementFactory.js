@@ -2,10 +2,6 @@ import {
   getBusinessObject
 } from 'bpmn-js/lib/util/ModelUtil';
 
-import { find } from 'min-dash';
-
-import validate from '../util/validate';
-
 import PropertyBindingProvider from './PropertyBindingProvider';
 import TaskDefinitionTypeBindingProvider from './TaskDefinitionTypeBindingProvider';
 import InputBindingProvider from './InputBindingProvider';
@@ -30,10 +26,9 @@ import { applyConditions } from '../Condition';
 
 export default class TemplateElementFactory {
 
-  constructor(bpmnFactory, elementFactory, moddle) {
+  constructor(bpmnFactory, elementFactory) {
     this._bpmnFactory = bpmnFactory;
     this._elementFactory = elementFactory;
-    this._moddle = moddle;
 
     this._providers = {
       [PROPERTY_TYPE]: PropertyBindingProvider,
@@ -56,16 +51,7 @@ export default class TemplateElementFactory {
   create(template) {
 
     const bpmnFactory = this._bpmnFactory;
-    const moddle = this._moddle;
     const providers = this._providers;
-
-    // (0) make sure template is valid
-    const errors = validate([ template ], moddle);
-
-    // todo(pinussilvestrus): return validation errors
-    if (errors && errors.length) {
-      throw new Error('template is invalid');
-    }
 
     // (1) base shape
     const element = this._createShape(template);
