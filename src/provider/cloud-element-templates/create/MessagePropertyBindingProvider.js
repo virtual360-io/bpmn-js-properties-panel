@@ -1,7 +1,5 @@
 import { getBusinessObject, is } from 'bpmn-js/lib/util/ModelUtil';
 
-import { createElement } from '../../../utils/ElementUtil';
-
 export class MessagePropertyBindingProvider {
   static create(element, options) {
     const {
@@ -27,7 +25,7 @@ export class MessagePropertyBindingProvider {
     let message = businessObject.get('messageRef');
 
     if (!message) {
-      message = createElement('bpmn:Message', {}, businessObject, bpmnFactory);
+      message = bpmnFactory.create('bpmn:Message');
       businessObject.set('messageRef', message);
     }
 

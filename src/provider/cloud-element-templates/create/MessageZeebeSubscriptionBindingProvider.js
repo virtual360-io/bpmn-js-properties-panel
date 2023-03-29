@@ -1,10 +1,6 @@
 import { getBusinessObject, is } from 'bpmn-js/lib/util/ModelUtil';
 
 import {
-  createElement
-} from '../../../utils/ElementUtil';
-
-import {
   ensureExtension,
   shouldUpdate
 } from '../CreateHelper';
@@ -32,7 +28,7 @@ export class MessageZeebeSubscriptionBindingProvider {
 
     let message = businessObject.get('messageRef');
     if (!message) {
-      message = createElement('bpmn:Message', {}, businessObject, bpmnFactory);
+      message = bpmnFactory.create('bpmn:Message');
       businessObject.set('messageRef', message);
     }
 
