@@ -632,7 +632,7 @@ export default class ChangeElementTemplateHandler {
       return newBindingType === MESSAGE_PROPERTY_TYPE;
     });
 
-    const message = this._getOrCreateMessage(element);
+    const message = this._getOrCreateMessage(element, newTemplate);
 
     if (!newProperties.length) {
       return;
@@ -672,7 +672,7 @@ export default class ChangeElementTemplateHandler {
       return newBindingType === MESSAGE_ZEEBE_SUBSCRIPTION_PROPERTY_TYPE;
     });
 
-    const message = this._getOrCreateMessage(element);
+    const message = this._getOrCreateMessage(element, newTemplate);
 
     if (!newProperties.length) {
       return;
@@ -717,7 +717,7 @@ export default class ChangeElementTemplateHandler {
     return newExtension;
   }
 
-  _getOrCreateMessage(element) {
+  _getOrCreateMessage(element, template) {
     let bo = getBusinessObject(element);
 
     if (is(bo, 'bpmn:Event')) {
@@ -727,7 +727,7 @@ export default class ChangeElementTemplateHandler {
     let message = bo.get('messageRef');
 
     if (!message) {
-      message = this._bpmnFactory.create('bpmn:Message');
+      message = this._bpmnFactory.create('bpmn:Message', { 'zeebe:modelerTemplate': template.id });
 
       this._modeling.updateModdleProperties(element, bo, { messageRef: message });
     }

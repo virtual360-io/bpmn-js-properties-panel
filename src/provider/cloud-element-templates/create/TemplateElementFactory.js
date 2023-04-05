@@ -81,7 +81,8 @@ export default class TemplateElementFactory {
 
       bindingProvider.create(element, {
         property,
-        bpmnFactory
+        bpmnFactory,
+        template
       });
     });
 

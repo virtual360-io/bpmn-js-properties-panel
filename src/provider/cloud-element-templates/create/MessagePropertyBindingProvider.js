@@ -5,7 +5,8 @@ export class MessagePropertyBindingProvider {
   static create(element, options) {
     const {
       bpmnFactory,
-      property
+      property,
+      template
     } = options;
 
     const {
@@ -27,7 +28,7 @@ export class MessagePropertyBindingProvider {
     let message = businessObject.get('messageRef');
 
     if (!message) {
-      message = bpmnFactory.create('bpmn:Message');
+      message = bpmnFactory.create('bpmn:Message', { 'zeebe:modelerTemplate': template.id });
       businessObject.set('messageRef', message);
     }
 
