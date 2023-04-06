@@ -599,6 +599,28 @@ describe('provider/cloud-element-templates - ElementTemplates', function() {
 
   });
 
+
+  describe('templated message', function() {
+
+    it('should hide templated message', inject(async function(elementRegistry, selection) {
+
+
+      // given
+      const event = elementRegistry.get('Event_1');
+
+      // when
+      await act(() => selection.select(event));
+      const messageRefSelect = domQuery('select[name=messageRef]', container);
+
+      // then
+      expect(asOptionNamesList(messageRefSelect)).to.eql([
+        '<none>',
+        'Create new ...',
+        'Message_1'
+      ]);
+    }));
+
+  });
 });
 
 
@@ -690,4 +712,13 @@ function getGroupIds(container) {
  */
 function withoutPrefix(groupId) {
   return groupId.slice(6);
+}
+
+function asOptionNamesList(select) {
+  const names = [];
+  const options = domQueryAll('option', select);
+
+  options.forEach(o => names.push(o.label));
+
+  return names;
 }
