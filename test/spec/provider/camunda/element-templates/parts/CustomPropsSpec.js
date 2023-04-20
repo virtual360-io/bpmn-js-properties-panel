@@ -20,8 +20,8 @@ var getRoot = require('lib/Utils').getRoot;
 
 var find = require('min-dash').find;
 
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
-    is = require('bpmn-js/lib/util/ModelUtil').is;
+var getBusinessObject = require('bpmn-js-8/lib/util/ModelUtil').getBusinessObject,
+    is = require('bpmn-js-8/lib/util/ModelUtil').is;
 
 
 describe('element-templates/parts - Custom Properties', function() {

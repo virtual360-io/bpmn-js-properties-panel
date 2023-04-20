@@ -9,13 +9,13 @@ var TestContainer = require('mocha-test-container-support');
 var propertiesPanelModule = require('lib'),
     domQuery = require('min-dom').query,
     domClasses = require('min-dom').classes,
-    coreModule = require('bpmn-js/lib/core').default,
+    coreModule = require('bpmn-js-8/lib/core').default,
     selectionModule = require('diagram-js/lib/features/selection').default,
-    modelingModule = require('bpmn-js/lib/features/modeling').default,
+    modelingModule = require('bpmn-js-8/lib/features/modeling').default,
     propertiesProviderModule = require('lib/provider/camunda'),
     camundaModdlePackage = require('camunda-bpmn-moddle/resources/camunda'),
-    getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
-    is = require('bpmn-js/lib/util/ModelUtil').is;
+    getBusinessObject = require('bpmn-js-8/lib/util/ModelUtil').getBusinessObject,
+    is = require('bpmn-js-8/lib/util/ModelUtil').is;
 
 var extensionElementsHelper = require('lib/helper/ExtensionElementsHelper');
 

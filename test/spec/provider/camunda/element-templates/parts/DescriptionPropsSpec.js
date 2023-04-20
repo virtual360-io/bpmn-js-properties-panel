@@ -8,7 +8,7 @@ var entrySelect = require('./Helper').entrySelect,
     selectAndGet = require('./Helper').selectAndGet,
     bootstrap = require('./Helper').bootstrap;
 
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
+var getBusinessObject = require('bpmn-js-8/lib/util/ModelUtil').getBusinessObject;
 
 var getVersionOrDateFromTemplate = require('lib/provider/camunda/element-templates/parts/Helper').getVersionOrDateFromTemplate;
 

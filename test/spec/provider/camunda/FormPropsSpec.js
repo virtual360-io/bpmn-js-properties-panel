@@ -6,15 +6,15 @@ var TestHelper = require('../../../TestHelper');
 
 var domQuery = require('min-dom').query;
 
-var coreModule = require('bpmn-js/lib/core').default,
-    modelingModule = require('bpmn-js/lib/features/modeling').default,
+var coreModule = require('bpmn-js-8/lib/core').default,
+    modelingModule = require('bpmn-js-8/lib/features/modeling').default,
     propertiesPanelModule = require('lib'),
     propertiesProviderModule = require('lib/provider/camunda'),
     selectionModule = require('diagram-js/lib/features/selection').default;
 
 var camundaModdlePackage = require('camunda-bpmn-moddle/resources/camunda');
 
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
+var getBusinessObject = require('bpmn-js-8/lib/util/ModelUtil').getBusinessObject;
 
 
 describe('form props', function() {

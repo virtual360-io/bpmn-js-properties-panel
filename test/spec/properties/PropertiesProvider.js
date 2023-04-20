@@ -6,8 +6,8 @@ var PropertiesActivator = require('lib/PropertiesActivator');
 
 var entryFactory = require('lib/factory/EntryFactory');
 
-var is = require('bpmn-js/lib/util/ModelUtil').is,
-    getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
+var is = require('bpmn-js-8/lib/util/ModelUtil').is,
+    getBusinessObject = require('bpmn-js-8/lib/util/ModelUtil').getBusinessObject;
 
 var cmdHelper = require('lib/helper/CmdHelper');
 

@@ -10,13 +10,13 @@ var propertiesPanelModule = require('lib'),
     domQuery = require('min-dom').query,
     domClasses = require('min-dom').classes,
     forEach = require('lodash/forEach'),
-    is = require('bpmn-js/lib/util/ModelUtil').is,
-    coreModule = require('bpmn-js/lib/core').default,
+    is = require('bpmn-js-8/lib/util/ModelUtil').is,
+    coreModule = require('bpmn-js-8/lib/core').default,
     selectionModule = require('diagram-js/lib/features/selection').default,
-    modelingModule = require('bpmn-js/lib/features/modeling').default,
+    modelingModule = require('bpmn-js-8/lib/features/modeling').default,
     propertiesProviderModule = require('lib/provider/camunda'),
     camundaModdlePackage = require('camunda-bpmn-moddle/resources/camunda'),
-    getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
+    getBusinessObject = require('bpmn-js-8/lib/util/ModelUtil').getBusinessObject;
 
 describe('collaboration-listener-properties', function() {
 

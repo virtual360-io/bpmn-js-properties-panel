@@ -9,8 +9,8 @@ var TestContainer = require('mocha-test-container-support');
 var propertiesPanelModule = require('lib'),
     propertiesProviderModule = require('lib/provider/camunda'),
     selectionModule = require('diagram-js/lib/features/selection').default,
-    modelingModule = require('bpmn-js/lib/features/modeling').default,
-    coreModule = require('bpmn-js/lib/core').default;
+    modelingModule = require('bpmn-js-8/lib/features/modeling').default,
+    coreModule = require('bpmn-js-8/lib/core').default;
 
 var camundaModdlePackage = require('camunda-bpmn-moddle/resources/camunda');
 
@@ -18,7 +18,7 @@ var classes = require('min-dom').classes,
     domQuery = require('min-dom').query,
     domQueryAll = require('min-dom').queryAll;
 
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
+var getBusinessObject = require('bpmn-js-8/lib/util/ModelUtil').getBusinessObject;
 
 
 describe('process-variables', function() {
@@ -318,4 +318,3 @@ function getPlaceholder(container) {
 function isHidden(entryNode) {
   return classes(domQuery('[data-show]', entryNode)).has('bpp-hidden');
 }
-

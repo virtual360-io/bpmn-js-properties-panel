@@ -4,13 +4,13 @@ require('../../../../TestHelper');
 
 /* global bootstrapModeler, inject */
 
-var coreModule = require('bpmn-js/lib/core').default,
-    modelingModule = require('bpmn-js/lib/features/modeling').default,
+var coreModule = require('bpmn-js-8/lib/core').default,
+    modelingModule = require('bpmn-js-8/lib/features/modeling').default,
     camundaModdlePackage = require('camunda-bpmn-moddle/resources/camunda');
 
 var getRoot = require('lib/Utils').getRoot;
 
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
+var getBusinessObject = require('bpmn-js-8/lib/util/ModelUtil').getBusinessObject;
 
 var CreateHelper = require('lib/provider/camunda/element-templates/CreateHelper');
 

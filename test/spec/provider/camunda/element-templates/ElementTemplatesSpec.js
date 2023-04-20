@@ -4,9 +4,9 @@ var TestContainer = require('mocha-test-container-support');
 
 /* global bootstrapModeler, inject */
 
-var coreModule = require('bpmn-js/lib/core').default,
+var coreModule = require('bpmn-js-8/lib/core').default,
     elementTemplatesModule = require('lib/provider/camunda/element-templates'),
-    modelingModule = require('bpmn-js/lib/features/modeling').default,
+    modelingModule = require('bpmn-js-8/lib/features/modeling').default,
     camundaModdlePackage = require('camunda-bpmn-moddle/resources/camunda');
 
 var diagramXML = require('./ElementTemplates.bpmn');

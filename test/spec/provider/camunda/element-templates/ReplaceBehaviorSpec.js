@@ -2,12 +2,12 @@
 
 var bootstrapModeler = require('../../../../helper').bootstrapModeler,
     camundaModdlePackage = require('camunda-bpmn-moddle/resources/camunda'),
-    coreModule = require('bpmn-js/lib/core').default,
+    coreModule = require('bpmn-js-8/lib/core').default,
     inject = require('../../../../helper').inject,
-    modelingModule = require('bpmn-js/lib/features/modeling').default,
+    modelingModule = require('bpmn-js-8/lib/features/modeling').default,
     propertiesPanelModule = require('lib'),
     propertiesProviderModule = require('lib/provider/camunda'),
-    replaceModule = require('bpmn-js/lib/features/replace').default;
+    replaceModule = require('bpmn-js-8/lib/features/replace').default;
 
 
 describe('element-templates - replace behavior', function() {
