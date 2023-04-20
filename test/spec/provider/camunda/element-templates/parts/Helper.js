@@ -2,7 +2,7 @@
 
 var TestHelper = require('../../../../../TestHelper');
 
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
+var getBusinessObject = require('bpmn-js-7/lib/util/ModelUtil').getBusinessObject;
 
 var slice = Array.prototype.slice;
 
@@ -55,9 +55,9 @@ module.exports.selectAndGet = selectAndGet;
 
 
 var propertiesPanelModule = require('lib'),
-    coreModule = require('bpmn-js/lib/core').default,
+    coreModule = require('bpmn-js-7/lib/core').default,
     selectionModule = require('diagram-js/lib/features/selection').default,
-    modelingModule = require('bpmn-js/lib/features/modeling').default,
+    modelingModule = require('bpmn-js-7/lib/features/modeling').default,
     propertiesProviderModule = require('lib/provider/camunda');
 
 var testModules = [
