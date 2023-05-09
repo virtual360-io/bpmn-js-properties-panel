@@ -2,7 +2,7 @@ import { CollapsibleEntry, ListEntry, TextFieldEntry } from '@bpmn-io/properties
 
 import {
   is
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import { without } from 'min-dash';
 

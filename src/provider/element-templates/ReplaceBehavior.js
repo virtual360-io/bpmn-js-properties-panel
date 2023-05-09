@@ -1,6 +1,6 @@
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 
-import { getBusinessObject, is } from 'bpmn-js/lib/util/ModelUtil';
+import { getBusinessObject, is } from 'bpmn-js-8/lib/util/ModelUtil';
 import { unlinkTemplate } from './util/templateUtil';
 
 /**

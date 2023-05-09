@@ -1,4 +1,4 @@
-import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
+import { getBusinessObject } from 'bpmn-js-8/lib/util/ModelUtil';
 
 import { findExtension } from './Helper';
 

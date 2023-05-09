@@ -1,6 +1,6 @@
 import {
   getBusinessObject
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import {
   TextFieldEntry,
@@ -287,7 +287,7 @@ function ResultVariable(props) {
   };
 
   // Note: camunda:mapDecisionResult got cleaned up in modeling behavior
-  // cf. https://github.com/camunda/camunda-bpmn-js/blob/main/lib/camunda-platform/features/modeling/behavior/UpdateResultVariableBehavior.js
+  // cf. https://github.com/camunda/camunda-bpmn-js-8/blob/main/lib/camunda-platform/features/modeling/behavior/UpdateResultVariableBehavior.js
   const setValue = (value) => {
     commandStack.execute('element.updateModdleProperties', {
       element,

@@ -3,7 +3,7 @@ import { isDefined } from 'min-dash';
 import {
   getBusinessObject,
   is
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 export function getFormRefBinding(element) {
   const businessObject = getBusinessObject(element);

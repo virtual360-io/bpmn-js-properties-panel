@@ -1,17 +1,17 @@
 import {
   getLabel
-} from 'bpmn-js/lib/features/label-editing/LabelUtil';
+} from 'bpmn-js-8/lib/features/label-editing/LabelUtil';
 
 import {
   is,
   getBusinessObject
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import {
   isExpanded,
   isEventSubProcess,
   isInterrupting
-} from 'bpmn-js/lib/util/DiUtil';
+} from 'bpmn-js-8/lib/util/DiUtil';
 
 import {
   useService

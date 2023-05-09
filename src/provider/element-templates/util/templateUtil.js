@@ -1,5 +1,5 @@
-import { getLabel, setLabel } from 'bpmn-js/lib/features/label-editing/LabelUtil';
-import { getBusinessObject, is } from 'bpmn-js/lib/util/ModelUtil';
+import { getLabel, setLabel } from 'bpmn-js-8/lib/features/label-editing/LabelUtil';
+import { getBusinessObject, is } from 'bpmn-js-8/lib/util/ModelUtil';
 
 import { isUndefined } from 'min-dash';
 

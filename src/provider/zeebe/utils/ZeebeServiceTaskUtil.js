@@ -1,7 +1,7 @@
 import {
   is,
   isAny
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import {
   getMessageEventDefinition
@@ -9,7 +9,7 @@ import {
 
 import {
   getBusinessObject
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import {
   getExtensionElementsList

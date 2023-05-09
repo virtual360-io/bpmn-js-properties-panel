@@ -2,7 +2,7 @@ import { ListEntry, SimpleEntry } from '@bpmn-io/properties-panel';
 
 import {
   is
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import { without } from 'min-dash';
 

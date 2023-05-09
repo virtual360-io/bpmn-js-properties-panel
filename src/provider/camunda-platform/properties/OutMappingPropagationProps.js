@@ -3,7 +3,7 @@ import { CheckboxEntry, isCheckboxEntryEdited } from '@bpmn-io/properties-panel'
 import {
   getBusinessObject,
   is
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import {
   filter

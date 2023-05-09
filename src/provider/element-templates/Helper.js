@@ -1,8 +1,8 @@
-import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
+import { getBusinessObject } from 'bpmn-js-8/lib/util/ModelUtil';
 
-import { is } from 'bpmn-js/lib/util/ModelUtil';
+import { is } from 'bpmn-js-8/lib/util/ModelUtil';
 
-import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+import { isAny } from 'bpmn-js-8/lib/features/modeling/util/ModelingUtil';
 
 /**
  * The BPMN 2.0 extension attribute name under
