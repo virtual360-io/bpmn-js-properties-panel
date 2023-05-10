@@ -1,10 +1,10 @@
 import {
   is
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import {
   isEventSubProcess
-} from 'bpmn-js/lib/util/DiUtil';
+} from 'bpmn-js-8/lib/util/DiUtil';
 
 import { TextFieldEntry, isTextFieldEntryEdited } from '@bpmn-io/properties-panel';
 

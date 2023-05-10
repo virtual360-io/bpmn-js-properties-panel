@@ -80,7 +80,7 @@ const CAMUNDA_PLATFORM_GROUPS = [
  *
  * @example
  * ```javascript
- * import BpmnModeler from 'bpmn-js/lib/Modeler';
+ * import BpmnModeler from 'bpmn-js-8/lib/Modeler';
  * import {
  *   BpmnPropertiesPanelModule,
  *   BpmnPropertiesProviderModule,

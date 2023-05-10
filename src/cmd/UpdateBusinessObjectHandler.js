@@ -6,7 +6,7 @@ import {
 
 import {
   is
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 /**
  * A handler that implements a BPMN 2.0 property update

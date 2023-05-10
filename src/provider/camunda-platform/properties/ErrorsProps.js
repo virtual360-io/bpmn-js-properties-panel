@@ -12,7 +12,7 @@ import {
 
 import Error from './Error';
 
-import { getBusinessObject, is } from 'bpmn-js/lib/util/ModelUtil';
+import { getBusinessObject, is } from 'bpmn-js-8/lib/util/ModelUtil';
 
 
 export function ErrorsProps({ element, injector }) {

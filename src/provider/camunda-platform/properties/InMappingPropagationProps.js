@@ -2,12 +2,12 @@ import { CheckboxEntry, isCheckboxEntryEdited } from '@bpmn-io/properties-panel'
 
 import {
   isAny
-} from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+} from 'bpmn-js-8/lib/features/modeling/util/ModelingUtil';
 
 import {
   getBusinessObject,
   is
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import {
   filter

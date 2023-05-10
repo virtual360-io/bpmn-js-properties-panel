@@ -107,7 +107,7 @@ function ImplementationType(props) {
 
     // (3) external
     // Note: error event definition elements got cleaned up in modeling behavior
-    // cf. https://github.com/camunda/camunda-bpmn-js/blob/main/lib/camunda-platform/features/modeling/behavior/DeleteErrorEventDefinitionBehavior.js
+    // cf. https://github.com/camunda/camunda-bpmn-js-8/blob/main/lib/camunda-platform/features/modeling/behavior/DeleteErrorEventDefinitionBehavior.js
     if (isExternalCapable(businessObject)) {
       updatedProperties = {
         ...updatedProperties,

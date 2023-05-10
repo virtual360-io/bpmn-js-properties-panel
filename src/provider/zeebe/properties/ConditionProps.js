@@ -1,11 +1,11 @@
 import {
   getBusinessObject,
   is
-} from 'bpmn-js/lib/util/ModelUtil';
+} from 'bpmn-js-8/lib/util/ModelUtil';
 
 import {
   isAny
-} from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+} from 'bpmn-js-8/lib/features/modeling/util/ModelingUtil';
 
 import {
   createElement

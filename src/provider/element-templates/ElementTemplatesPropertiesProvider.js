@@ -1,4 +1,4 @@
-import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+import { isAny } from 'bpmn-js-8/lib/features/modeling/util/ModelingUtil';
 
 import { ListGroup } from '@bpmn-io/properties-panel';
 
